@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "username": "test",
+      "password": "$2b$12$1jQwxuNMrxIF2omhpF9PHe8K8zhrKngr0dzkEIPq6Kcp77zFKK2fe",
+      "createdAt": 1783208145153
+    },
+    {
+      "username": "test",
+      "password": "$2b$12$KGUL6LXs8eWg7E9IoflDGeM2gkFY5JMsIQB19eHPFQGoB2uBuN5bW",
+      "createdAt": 1783208228495
+    }
+  ]
+}

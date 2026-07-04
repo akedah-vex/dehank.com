@@ -74,7 +74,20 @@ const login = (req, res) => {
   });
 };
 
-const register = (req, res) => {};
+const register = async (username, password) => {
+  let user = {
+    username,
+    password: "",
+    createdAt: Date.now(),
+  };
+
+  const salty = 12;
+  const passwordHash = await bcrypt.hash(password, salty);
+
+  user.password = passwordHash;
+
+  return user;
+};
 
 const recover = (req, res) => {};
 
