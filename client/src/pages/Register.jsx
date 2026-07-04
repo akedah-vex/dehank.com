@@ -4,17 +4,11 @@ import AuthContext from '../context/AuthContext'
 const Register = () => {
   const { handleLogin, loginStatus, setCurrentPage } = useContext(AuthContext);
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleUsernameChangeEvent = (event) => {
     setUsername(event.target.value);
-  }
-
-  const handleEmailChangeEvent = (event) => {
-    // text validation here
-    setEmail(event.target.value);
   }
 
   const handleConfirmPasswordChangeEvent = (event) => {
@@ -99,19 +93,6 @@ const Register = () => {
                 value={username}
                 onChange={handleUsernameChangeEvent}
                 placeholder="radical_dude_840"
-                className="w-full border-4 border-black px-5 py-4 text-xl font-bold bg-white focus:bg-yellow-100 transition-colors outline-none"
-                style={{ boxShadow: 'inset 4px 4px 0 #000' }}
-              />
-            </div>
-
-            {/* email */}
-            <div className="opacity-0 animate-[popIn_0.6s_forwards]" style={{ animationDelay: '750ms' }}>
-              <label className="block text-black font-black text-xl mb-2 tracking-wider">EMAIL ADDRESS</label>
-              <input
-                type="text"
-                value={email}
-                onChange={handleEmailChangeEvent}
-                placeholder="dudeman90@gmail.com"
                 className="w-full border-4 border-black px-5 py-4 text-xl font-bold bg-white focus:bg-yellow-100 transition-colors outline-none"
                 style={{ boxShadow: 'inset 4px 4px 0 #000' }}
               />
