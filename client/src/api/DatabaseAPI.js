@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURI = "http://localhost:3004";
+const baseURI = "";
 
 const register = async ({ username, password }) => {
   if (!username || !password) {
