@@ -57,8 +57,9 @@ server.post("/api/auth/login", (req, res) => {
   return "lmao";
 });
 
-server.get("/api/auth/register", async (req, res) => {
+server.post("/api/auth/register", async (req, res) => {
   console.log("users endpoint hit");
+  console.log(req.body);
   return;
 });
 

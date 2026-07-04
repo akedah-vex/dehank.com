@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext'
 
 const Register = () => {
-  const { handleLogin, loginStatus, setCurrentPage } = useContext(AuthContext);
+  const { handleRegister, loginStatus, setCurrentPage } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,13 +23,12 @@ const Register = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault()
 
-    const response = await handleLogin(username, password);
-
+    // register?
+    // assuming good input by this point
+    const response = handleRegister(username, password);
     if (response)
     {
-        setUsername('');
-        setPassword('');
-        console.log("success");
+        console.log("response")
     }
   }
 

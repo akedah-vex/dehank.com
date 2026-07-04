@@ -1,5 +1,5 @@
 import { createContext, useState, useCallback } from 'react';
-import axios from 'axios';
+import { register, login } from '../api/DatabaseAPI'
 
 const AuthContext = createContext();
 
@@ -9,51 +9,12 @@ const Provider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentPage, setCurrentPage] = useState("/login");
 
-
     const handleLogin = async (username, password) => {
-        // console.log("logging in with username:", username, "and password:", password)
-        if (!username || !password) {
-            setLoginStatus({ message: "Please enter both username and password.", status: -1 });
-            return false;
-        }
+        login({username, password})
+    }
 
-        const credentials = {
-            username,
-            password
-        };
-
-        const res = await axios.post(`/api/auth/login`, credentials, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).catch(err => {
-            console.error("Error during login request:", err);
-            setLoginStatus({ message: "An error occurred during login. Please try again.", status: -1 });
-            return;
-        });
-
-        // const res = login(credentials);
-
-        // console.log("Login response data:", res.data);
-
-        // const token = res.data.token;
-        const token = "yep"
-
-        // get a returned token and set state accordingly
-        if (token) {
-            // setUser(res.data);
-            setUser("lmao")
-            setLoginStatus({ message: "Login successful!", status: 1 });
-            setIsAuthenticated(true);
-            // console.log(token)
-            // store token in a browser cookie? What is best practice here
-            return true;
-        }
-        else {
-            setLoginStatus({ message: "Invalid username or password.", status: -1 });
-            return false;
-        }
-
+    const handleRegister = async (username, password) => {
+        register({username, password})
     }
 
     const handleLogout = (logoutStatus) => {
@@ -74,6 +35,7 @@ const Provider = ({ children }) => {
     let authContextValue = {
         handleLogin,
         handleLogout,
+        handleRegister,
         getUser,
         setCurrentPage,
         applyPage,
