@@ -51,7 +51,7 @@ const Splash = ({callback}) => {
               animation: 'float 3s ease-in-out infinite'
             }}
           >
-            de'Hank!!
+            de'Hank!
           </h1>
           
           {/* Extra depth layer for "pop" */}
@@ -68,7 +68,7 @@ const Splash = ({callback}) => {
           }`}
           style={{ animationDelay: '800ms' }}
         >
-          THE MOST RADICAL SPOT ON THE WEB 🌈
+          THE MOST RADICAAL SPOT ON THE WEB 🌈
         </p>
 
         {/* Buttons */}
