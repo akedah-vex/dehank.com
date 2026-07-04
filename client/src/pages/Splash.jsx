@@ -68,7 +68,7 @@ const Splash = ({callback}) => {
           }`}
           style={{ animationDelay: '800ms' }}
         >
-          THE MOST RADICAAL SPOT ON THE WEB 🌈
+          THE MOST RADICAL SPOT ON THE WEB 🌈
         </p>
 
         {/* Buttons */}
