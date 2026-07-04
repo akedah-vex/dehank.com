@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURI = "";
+import { baseURI } from "./baseURI";
 
 const register = async ({ username, password }) => {
   if (!username || !password) {
