@@ -1,0 +1,52 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main] # or master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # or 22
+          cache: "npm"
+          cache-dependency-path: |
+            client/package-lock.json
+            server/package-lock.json
+
+      - name: Install client dependencies
+        run: npm ci --prefix client
+
+      - name: Build React app (Vite)
+        run: npm run build --prefix client
+
+      - name: Install server dependencies
+        run: npm ci --prefix server
+
+      # Optional: Run tests later
+      # - name: Test Client
+      #   run: npm test --prefix client
+      # - name: Test Server
+      #   run: npm test --prefix server
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/vex/dehank
+            git pull origin main
+            npm ci --prefix client
+            npm run build --prefix client
+            npm ci --prefix server
+            pm2 restart server   # or whatever your PM2 name is
+            echo "✅ Deployed at $(date)"
