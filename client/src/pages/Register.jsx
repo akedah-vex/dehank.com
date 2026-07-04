@@ -1,16 +1,25 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 
-const Login = () => {
+const Register = () => {
   const { handleLogin, loginStatus, setCurrentPage } = useContext(AuthContext);
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleUsernameChangeEvent = (event) => {
     setUsername(event.target.value);
+  }
+
+  const handleEmailChangeEvent = (event) => {
+    // text validation here
+    setEmail(event.target.value);
+  }
+
+  const handleConfirmPasswordChangeEvent = (event) => {
+    // make sure passwords match, etc..
+    setConfirmPassword(event.target.value);
   }
 
   const handlePasswordChangeEvent = (event) => {
@@ -61,14 +70,14 @@ const Login = () => {
             animationDelay: '100ms'
           }}
         >
-          Login!
+          REGISTER
         </h1>
 
         <p 
           className="text-2xl font-bold text-white tracking-widest pt-5 pb-10 opacity-0 animate-[popIn_0.6s_forwards]"
           style={{ animationDelay: '300ms' }}
         >
-          LOG IN TO THE FUN ZONE
+          GET OVA HERE!
         </p>
          
         {/* Login Box */}
@@ -78,7 +87,7 @@ const Login = () => {
         >
           {/* Comic shine effect */}
           <div className="absolute -top-5 -right-7 bg-yellow-400 text-black text-lg font-black px-5 py-1 border-4 border-black rotate-12 shadow-md">
-            TOP SECRET
+            CLASSIFIED
           </div>
 
           <form className="space-y-8" onSubmit={handleFormSubmit}>
@@ -90,6 +99,19 @@ const Login = () => {
                 value={username}
                 onChange={handleUsernameChangeEvent}
                 placeholder="radical_dude_840"
+                className="w-full border-4 border-black px-5 py-4 text-xl font-bold bg-white focus:bg-yellow-100 transition-colors outline-none"
+                style={{ boxShadow: 'inset 4px 4px 0 #000' }}
+              />
+            </div>
+
+            {/* email */}
+            <div className="opacity-0 animate-[popIn_0.6s_forwards]" style={{ animationDelay: '750ms' }}>
+              <label className="block text-black font-black text-xl mb-2 tracking-wider">EMAIL ADDRESS</label>
+              <input
+                type="text"
+                value={email}
+                onChange={handleEmailChangeEvent}
+                placeholder="dudeman90@gmail.com"
                 className="w-full border-4 border-black px-5 py-4 text-xl font-bold bg-white focus:bg-yellow-100 transition-colors outline-none"
                 style={{ boxShadow: 'inset 4px 4px 0 #000' }}
               />
@@ -108,6 +130,19 @@ const Login = () => {
               />
             </div>
 
+            {/* Confirm Password */}
+            <div className="opacity-0 animate-[popIn_0.6s_forwards]" style={{ animationDelay: '850ms' }}>
+              <label className="block text-black font-black text-xl mb-2 tracking-wider">CONFIRM PASSWORD</label>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChangeEvent}
+                placeholder="••••••••"
+                className="w-full border-4 border-black px-5 py-4 text-xl font-bold bg-white focus:bg-yellow-100 transition-colors outline-none"
+                style={{ boxShadow: 'inset 4px 4px 0 #000' }}
+              />
+            </div>
+
             {/* Login Button */}
             <button
               type="submit"
@@ -115,18 +150,10 @@ const Login = () => {
               className="w-full bg-black hover:cursor-pointer hover:bg-[#ff00ff] text-white border-4 border-black py-6 text-3xl font-black tracking-widest transition-all hover:scale-105 active:scale-95 shadow-[6px_6px_0_#fff] opacity-0 animate-[popIn_0.6s_forwards]"
               style={{ animationDelay: '1000ms' }}
             >
-              LOGIN
+              SUBMIT
             </button>
 
-            {/* Register Button */}
-            <button
-              type="button"
-              onClick={() => navigate('/register')}
-              className="w-full bg-transparent hover:cursor-pointer hover:bg-white text-black border-4 border-black py-5 text-2xl font-black tracking-wider transition-all hover:scale-105 active:scale-95 opacity-0 animate-[popIn_0.6s_forwards]"
-              style={{ animationDelay: '1150ms' }}
-            >
-              NEW HERE?<br/>REGISTER
-            </button>
+            
           </form>
 
           {/* Forgot Password */}
@@ -136,7 +163,7 @@ const Login = () => {
               onClick={(e) => { e.preventDefault(); alert("Forgot your password? Tough luck, dude! (just kidding, coming soon)"); }}
               className="text-black font-bold underline decoration-yellow-400 hover:text-pink-600 transition-colors text-lg"
             >
-              FORGOT PASSWORD?
+              
             </a>
           </div>
         </div>
@@ -146,7 +173,7 @@ const Login = () => {
           className="text-center text-white/60 text-sm font-mono tracking-widest mt-8 opacity-0 animate-[popIn_0.6s_forwards]"
           style={{ animationDelay: '1500ms' }}
         >
-          EST. 2026 • NO BOOMERS ALLOWED
+          EST. 2026 • IT GETS THE PEOPLE GOIN!
         </p>
       </div>
 
@@ -177,7 +204,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
 
 
