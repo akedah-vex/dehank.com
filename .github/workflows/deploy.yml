@@ -47,6 +47,7 @@ jobs:
             git pull origin main
             npm ci --prefix client
             npm run build --prefix client
+            cp -r ./client/dist /var/www/dehank.com/dist
             npm ci --prefix server
             pm2 restart server   # or whatever your PM2 name is
             echo "✅ Deployed at $(date)"
