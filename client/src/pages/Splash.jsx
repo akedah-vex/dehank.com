@@ -51,7 +51,7 @@ const Splash = ({callback}) => {
               animation: 'float 3s ease-in-out infinite'
             }}
           >
-            de'Hank!
+            de'Hank!!
           </h1>
           
           {/* Extra depth layer for "pop" */}
