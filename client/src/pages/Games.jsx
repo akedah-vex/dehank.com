@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext'
+import Logo from '../components/Logo';
 
 
 const Games = () => {
@@ -44,7 +45,7 @@ const Games = () => {
                 animation: 'float 2.5s ease-in-out infinite',
               }}
             >
-              LOGIN<br />SUCCESS!
+              <br/>SUCCESS!
             </h1>
           </div>
 
@@ -54,17 +55,17 @@ const Games = () => {
               WELCOME BACK
             </p>
             <p 
-              className="text-6xl md:text-7xl font-black text-lime-400 tracking-wider drop-shadow-[0_0_20px_#84cc16]"
+              className="text-6xl md:text-7xl font-black text-red-500 tracking-wider drop-shadow-[0_0_20px_#84cc16]"
               style={{ fontFamily: '"Comic Sans MS", cursive' }}
             >
-              {user || "COOL PERSON"}!
+              <Logo text={user} /> 
             </p>
           </div>
             <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
-              We're under active development <br /> check back later!
+              We're under active development <br /> check back later! <br /><br /> ~ Henry
             </p>
           {/* Current Time */}
-          <div className="bg-black/70 border-4 border-white p-8 mb-16">
+          <div className="mt-10 bg-black/70 border-4 border-white p-8 mb-16">
             <p className="text-white/70 text-xl font-mono tracking-[3px] mb-2">CURRENT TIME</p>
             <p className="text-4xl font-mono text-white tabular-nums">
               {currentTime.toLocaleDateString('en-US', { 
