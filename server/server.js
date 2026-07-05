@@ -25,19 +25,11 @@ const upload = multer({
     // check for file type eventually, doing no checks now
 
     return cb(null, true);
-
-    // const allowedTypes = ["text/csv", "application/vnd.ms-excel"];
-    // // const extension = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    // const ext = allowedTypes.includes(path.extname(file.originalname).toLowerCase());
-    // if (ext) {
-    //     return cb(null, true);
-    // }
-    // cb(new Error("Only CSV files are allowed"));
   },
 });
 server.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://dehank.com/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
