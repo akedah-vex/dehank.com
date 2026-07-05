@@ -49,6 +49,7 @@ server.use(express.urlencoded({ extended: true }));
 // login auth post == form submission
 server.post("/api/auth/login", async (req, res) => {
   console.log("/auth/login endpoint has been hit!");
+  console.log("reality check");
   const result = await login(req, res);
   console.log("server: ", result);
   res.json({ result });
