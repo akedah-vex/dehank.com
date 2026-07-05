@@ -1,3 +1,7 @@
 
 client/dist/
 */node_modules/
+<<<<<<< HEAD
+=======
+database/
+>>>>>>> dev
