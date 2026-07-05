@@ -24,10 +24,10 @@ const login = async (req, res) => {
       const match = await bcrypt.compare(password, hashedPassword);
 
       if (match) {
+        console.log("match!");
         const token = jwt.sign(
           {
-            username,
-            id: hash(username),
+            id: data.users[user].id,
           },
           process.env.JWT_SECRET,
           {
