@@ -3,7 +3,7 @@ import cors from "cors";
 import fs from "fs";
 import multer from "multer";
 import { readDatabase, writeDatabase } from "./src/util/DatabaseUtility.js";
-import { login, register } from "./src/Auth.js";
+import { login, createUser, register } from "./src/Auth.js";
 import { configFilePath, usersDatabase } from "./src/Constants.js";
 const server = express();
 const port = 3004;
@@ -49,26 +49,12 @@ server.use(express.urlencoded({ extended: true }));
 // login auth post == form submission
 server.post("/api/auth/login", async (req, res) => {
   console.log("/auth/login endpoint has been hit!");
-  console.log("reality check");
-  const result = await login(req, res);
-  console.log("server: ", result);
-  res.json({ result });
+  return await login(req, res);
 });
 
 server.post("/api/auth/register", async (req, res) => {
-  console.log("users endpoint hit");
-  // console.log(req.body);
-  let { username, password } = req.body;
-
-  const user = await register(username, password);
-  const database = await readDatabase(usersDatabase);
-  database.users.push(user);
-
-  let response = await writeDatabase(usersDatabase, database);
-  if (response) {
-    console.log(`user ${username} created at:`, Date.now());
-  }
-  return response;
+  console.log("/api/auth/register endpoint has been hit!");
+  return await register(req, res);
 });
 
 server.get("/", (req, res) => {

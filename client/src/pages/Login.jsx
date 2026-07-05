@@ -22,14 +22,18 @@ const Login = () => {
     event.preventDefault()
     console.log("logging in")
     const response = await handleLogin(username, password);
-    console.log("client:", response)
-    if (response.data.result === true)
+    console.log("client-login:", response)
+    if (response.data.success === true)
     {
         setUser(username);
         setUsername('')
         setPassword('');
         console.log("success");
+        alert("Log in success")
         navigate('/games');
+    }
+    else {
+      alert("Failed to login")
     }
   }
 

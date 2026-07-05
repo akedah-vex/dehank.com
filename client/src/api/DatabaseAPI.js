@@ -36,7 +36,7 @@ const login = async ({ username, password }) => {
     password,
   };
 
-  const res = await axios
+  const response = await axios
     .post(`${baseURI}/api/auth/login`, credentials, {
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const login = async ({ username, password }) => {
 
       return;
     });
-  return res;
+  return response;
 };
 
 export { register as register };

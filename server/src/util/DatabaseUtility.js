@@ -35,6 +35,7 @@ const readDatabase = (database) => {
       console.error(e);
       reject(e);
     }
+    console.log("database read into memory...");
   });
 };
 
@@ -45,7 +46,7 @@ const writeDatabase = (database, data) => {
         console.error("error writing file:", e);
         return reject(false);
       }
-      console.log("file written successfully");
+      console.log("database successfully written");
       return resolve(true);
     });
   });

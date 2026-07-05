@@ -40,12 +40,15 @@ const Register = () => {
 
     // register?
     // assuming good input by this point
-    const response = handleRegister(username, password);
-    if (response)
+    const response = await handleRegister(username, password);
+    console.log("client-registration:", response)
+    if (response.data.success === true)
     {
-        console.log("response")
+        console.log(response)
         navigate('/login')
         alert("account created successfully")
+    } else {
+        alert("failed to create account \n", response.data.message)
     }
   }
 

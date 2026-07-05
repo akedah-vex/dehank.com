@@ -15,7 +15,8 @@ const Provider = ({ children }) => {
     }
 
     const handleRegister = async (username, password) => {
-        register({username, password})
+        const res = await register({username, password})
+        return res;
     }
 
     const handleLogout = (logoutStatus) => {
