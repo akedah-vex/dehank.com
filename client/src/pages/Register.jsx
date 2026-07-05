@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
+import Logo from '../components/Logo';
 
 const Register = () => {
   const { handleRegister } = useContext(AuthContext);
@@ -61,26 +62,7 @@ const Register = () => {
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center">
        
-        {/* deHank! Title */}
-        <h1
-          className="text-[9rem] md:text-[12rem] font-black tracking-[-0.05em] leading-none select-none opacity-100 animate-[popIn_0.6s_forwards]"
-          style={{
-            fontFamily: '"Comic Sans MS", "Impact", sans-serif',
-            textShadow: `
-              6px 6px 0 #ff00ff,
-              -6px -6px 0 #00ffff,
-              8px -8px 0 #ffff00,
-              -8px 8px 0 #ff00ff
-            `,
-            WebkitTextStroke: '4px #000',
-            color: '#fff',
-            filter: 'drop-shadow(0 25px 25px rgba(0,0,0,0.6))',
-            animation: 'float 3s ease-in-out infinite',
-            animationDelay: '100ms'
-          }}
-        >
-          REGISTER
-        </h1>
+        <Logo text={"Register!"} />
 
         <p 
           className="text-2xl font-bold text-white tracking-widest pt-5 pb-10 opacity-0 animate-[popIn_0.6s_forwards]"

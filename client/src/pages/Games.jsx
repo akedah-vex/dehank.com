@@ -5,7 +5,7 @@ import AuthContext from '../context/AuthContext'
 const Games = () => {
   const { user } = useContext(AuthContext)
 
-const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
