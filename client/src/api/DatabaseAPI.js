@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import { baseURI } from "./baseURI";
-
 const register = async ({ username, password }) => {
   if (!username || !password) {
     return false;
@@ -13,7 +11,7 @@ const register = async ({ username, password }) => {
   };
 
   const response = await axios
-    .post(`${baseURI}/api/auth/register`, credentials, {
+    .post("/api/auth/register", credentials, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -37,7 +35,7 @@ const login = async ({ username, password }) => {
   };
 
   const response = await axios
-    .post(`${baseURI}/api/auth/login`, credentials, {
+    .post("/api/auth/login", credentials, {
       headers: {
         "Content-Type": "application/json",
       },
