@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 
 const Login = () => {
-  const { handleLogin, loginStatus, setCurrentPage } = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
