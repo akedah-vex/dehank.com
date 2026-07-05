@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext'
 import Logo from '../components/Logo'
 
 const Login = () => {
-  const { handleLogin, setUser, user } = useContext(AuthContext);
+  const { handleLogin, setUser } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
