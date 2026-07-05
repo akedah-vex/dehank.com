@@ -1,11 +1,15 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 
 const Register = () => {
   const { handleRegister, loginStatus, setCurrentPage } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [matching, setMatching] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleUsernameChangeEvent = (event) => {
     setUsername(event.target.value);
@@ -14,6 +18,11 @@ const Register = () => {
   const handleConfirmPasswordChangeEvent = (event) => {
     // make sure passwords match, etc..
     setConfirmPassword(event.target.value);
+    if (password === event.target.value) {
+        setMatching(true);
+    } else {
+        setMatching('passwords do not match');
+    }
   }
 
   const handlePasswordChangeEvent = (event) => {
@@ -23,12 +32,19 @@ const Register = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault()
 
+    if (matching != true) {
+        alert("passwords must match")
+        return;
+    }
+
     // register?
     // assuming good input by this point
     const response = handleRegister(username, password);
     if (response)
     {
         console.log("response")
+        navigate('/login')
+        alert("account created successfully")
     }
   }
 
@@ -96,6 +112,8 @@ const Register = () => {
                 style={{ boxShadow: 'inset 4px 4px 0 #000' }}
               />
             </div>
+
+            <p className="text-lg font-bold text-red-500">{matching}</p>
 
             {/* Password */}
             <div className="opacity-0 animate-[popIn_0.6s_forwards]" style={{ animationDelay: '850ms' }}>
