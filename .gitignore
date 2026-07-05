@@ -2,4 +2,5 @@
 client/dist/
 */node_modules/
 database/
-
+server/.env
+.env
