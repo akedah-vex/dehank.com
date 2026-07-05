@@ -11,7 +11,7 @@ const login = async (req, res) => {
   console.log("Received login request for username:", username);
 
   if (!username || !password) {
-    console.log("Missing username or password in request body");
+    console.log("Missing username or password in request bodyy");
     return res
       .status(400)
       .json({ message: "Please enter both username and password." });
