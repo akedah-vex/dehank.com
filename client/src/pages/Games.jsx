@@ -60,7 +60,9 @@ const Games = () => {
               {user || "COOL PERSON"}!
             </p>
           </div>
-
+            <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
+              We're under active development <br /> check back later!
+            </p>
           {/* Current Time */}
           <div className="bg-black/70 border-4 border-white p-8 mb-16">
             <p className="text-white/70 text-xl font-mono tracking-[3px] mb-2">CURRENT TIME</p>
@@ -80,24 +82,7 @@ const Games = () => {
               })}
             </p>
           </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6">
-            <button
-              onClick={() => window.location.href = '/'}
-              className="group relative px-12 py-6 text-3xl font-black tracking-wider bg-white text-black border-8 border-black hover:scale-110 active:scale-95 transition-all duration-200 shadow-[8px_8px_0_#000] hover:shadow-[12px_12px_0_#000]"
-            >
-              ENTER THE SITE
-            </button>
-
-            <button
-              onClick={() => window.location.href = '/login'}
-              className="group relative px-12 py-6 text-3xl font-black tracking-wider bg-transparent text-white border-8 border-white hover:bg-white hover:text-black transition-all duration-200 shadow-[8px_8px_0_#fff] hover:shadow-[12px_12px_0_#000]"
-            >
-              LOG OUT
-            </button>
-          </div>
-
+          
           {/* Footer badge */}
           <div className="absolute bottom-8 text-white/70 text-sm font-mono tracking-[4px] flex items-center gap-2">
             <div className="w-3 h-3 bg-lime-400 rounded-full animate-pulse" />
