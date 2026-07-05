@@ -10,7 +10,8 @@ const Provider = ({ children }) => {
     const [currentPage, setCurrentPage] = useState("/login");
 
     const handleLogin = async (username, password) => {
-        login({username, password})
+        const res = await login({username, password})
+        return res;
     }
 
     const handleRegister = async (username, password) => {
@@ -39,6 +40,7 @@ const Provider = ({ children }) => {
         getUser,
         setCurrentPage,
         applyPage,
+        setUser,
         currentPage,
         user,
         loginStatus,

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 
 const Login = () => {
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, setUser, user } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,14 +19,16 @@ const Login = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault()
-
+    console.log("logging in")
     const response = await handleLogin(username, password);
-
-    if (response)
+    console.log("client:", response)
+    if (response.data.result === true)
     {
-        setUsername('');
+        setUser(username);
+        setUsername('')
         setPassword('');
         console.log("success");
+        navigate('/games');
     }
   }
 

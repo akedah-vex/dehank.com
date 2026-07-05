@@ -2,9 +2,10 @@ import bcrypt from "bcryptjs";
 import fs from "fs";
 import jwt from "jsonwebtoken";
 
-const dataPath = "../database/db.json";
+import { usersDatabase } from "./Constants.js";
+import { readDatabase } from "./util/DatabaseUtility.js";
 
-const login = (req, res) => {
+const login = async (req, res) => {
   const { username, password } = req.body;
   console.log("Received login request for username:", username);
 
@@ -15,69 +16,31 @@ const login = (req, res) => {
       .json({ message: "Please enter both username and password." });
   }
 
-  fs.readFile(dataPath, "utf8", (err, data) => {
-    // async
-    if (err) {
-      console.error("Error reading user data:", err);
-      return res
-        .status(500)
-        .json({ message: "An error occurred while processing your request." });
-    }
-    // find user in question
-    const users = JSON.parse(data).users;
-    const user = users.find((u) => u.username === username);
-    if (!user) {
-      console.log("User not found:", username);
-      return res.status(401).json({ message: "Invalid username or password." });
-    }
-    // compare password with hashed password
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if (err) {
-        console.error("Error comparing passwords:", err);
-        return res.status(500).json({
-          message: "An error occurred while processing your request.",
-        });
-      }
-      if (!isMatch) {
-        console.log("Password match for user:", username);
-        // In a real application, you would generate a token here
-        const payload = {
-          name: user.username,
-          role: user.role,
-        };
-        // const secretKey = process.env.JWT_SECRET;
-        const secretKey = "secretSauce";
-        const token = jwt.sign(payload, secretKey, { expiresIn: "3h" });
-        // set up cookie
-        res.cookie("token", token, {
-          httpOnly: true, // prevent client side JS access
-          secure: false, // not using https
-          sameSite: "strict", // prevent CSRF attacks?
-        });
-        // all info to send back to client:
-        return res.json({
-          username: user.username,
-          displayname: user.displayname,
-          role: user.role,
-          message: "Login successful!",
-          token: token, // might not want to send token back?
-          ...user,
-        });
-        // assign token to user in db??
+  const database = await readDatabase(usersDatabase);
+  for (let user in database.users) {
+    if (username === database.users[user].username) {
+      // match
+      console.log("account match, cross ref password");
+      const hashedPassword = database.users[user].password;
+
+      const result = await bcrypt.compare(password, hashedPassword);
+
+      if (result) {
+        return true;
       } else {
-        console.log("Password mismatch for user:", username);
-        return res
-          .status(401)
-          .json({ message: "Invalid username or password." });
+        return false;
       }
-    });
-  });
+    }
+  }
+  console.log("no match found for:", username);
+  return res.json({ message: "faliure" });
 };
 
 const register = async (username, password) => {
   let user = {
     username,
     password: "",
+    role: "user",
     createdAt: Date.now(),
   };
 

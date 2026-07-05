@@ -47,10 +47,11 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 // login auth post == form submission
-server.post("/api/auth/login", (req, res) => {
+server.post("/api/auth/login", async (req, res) => {
   console.log("/auth/login endpoint has been hit!");
-  // return login(req, res);
-  return "lmao";
+  const result = await login(req, res);
+  console.log("server: ", result);
+  res.json({ result });
 });
 
 server.post("/api/auth/register", async (req, res) => {
