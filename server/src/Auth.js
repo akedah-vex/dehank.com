@@ -61,11 +61,9 @@ const register = async (req, res) => {
   const data = await readDatabase(usersDatabase);
 
   for (let user in data.users) {
-    console.log("yep");
     console.log(data.users[user].username);
     if (username === data.users[user].username) {
       // we have a match, exit
-      console.log("match, cant create user");
       return res.json({ success: false, message: "user already exists" });
     }
   }
