@@ -65,7 +65,7 @@ const Games = () => {
             <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
               We're under active development <br /> check back later! <br /><br /> ~ Henry
             </p>
-            <a href="/games/farm-build/KaeFarm.html">Where is even this?</a>
+            {/* <a href="/games/farm-build/KaeFarm.html">Where is even this?</a> */}
           {/* Current Time */}
           <div className="mt-10 bg-black/70 border-4 border-white p-8 mb-16">
             <p className="text-white/70 text-xl font-mono tracking-[3px] mb-2">CURRENT TIME</p>

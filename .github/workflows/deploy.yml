@@ -51,4 +51,4 @@ jobs:
             cp -r ./client/dist /var/www/dehank.com/dist
             npm ci --prefix server
             pm2 restart server   # or whatever your PM2 name is
-            echo "✅ Deployed at $(date)"
+            echo "Deployed at $(date)"
