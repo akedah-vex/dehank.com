@@ -83,20 +83,14 @@ const createUser = async (username, password) => {
   const salty = 12;
 
   let user = {
-    username,
+    username: username.toString().toLowerCase(),
     password: await bcrypt.hash(password, salty),
-    id: hash(username),
+    id: hash(username.toString().toLowerCase()),
     role: "user",
     createdAt: Date.now(),
   };
 
   return user;
-};
-
-const usernameExists = (username) => {
-  const data = readDatabase(usersDatabase);
-
-  return false;
 };
 
 const recover = (req, res) => {};

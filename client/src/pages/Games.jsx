@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import Logo from '../components/Logo';
 
@@ -64,6 +65,7 @@ const Games = () => {
             <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
               We're under active development <br /> check back later! <br /><br /> ~ Henry
             </p>
+            <Link to="/games/farm-build/KaeFarm.html">Where is even this?</Link>
           {/* Current Time */}
           <div className="mt-10 bg-black/70 border-4 border-white p-8 mb-16">
             <p className="text-white/70 text-xl font-mono tracking-[3px] mb-2">CURRENT TIME</p>
