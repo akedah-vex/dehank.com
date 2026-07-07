@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom'
 import AuthContext from '../context/AuthContext'
 import Logo from '../components/Logo';
+import Modal from '../components/Modal';
 
 
 const Games = () => {
   const { user } = useContext(AuthContext)
 
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -18,6 +19,9 @@ const Games = () => {
   }, []);
   return (
     <>
+    <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+      test
+    </Modal>
       <div className="min-h-screen relative overflow-hidden bg-black font-sans">
         {/* Same swirling background as reference */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#ff00ff_0%,transparent_50%)] animate-[spin_25s_linear_infinite]" />

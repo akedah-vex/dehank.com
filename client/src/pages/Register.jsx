@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 import Logo from '../components/Logo';
+import Modal from '../components/Modal';
 
 const Register = () => {
   const { handleRegister } = useContext(AuthContext);
@@ -9,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [matching, setMatching] = useState(true);
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [openModal, setOpenModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,7 +36,8 @@ const Register = () => {
     event.preventDefault()
 
     if (matching != true) {
-        alert("passwords must match")
+      setOpenModal(true)
+        
         return;
     }
 
@@ -53,6 +56,10 @@ const Register = () => {
   }
 
   return (
+    <>
+    <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+      <p className="block text-black font-black text-xl mb-2 tracking-wider">Passwords gotta match man!</p>
+    </Modal>
     <div className="min-h-screen relative overflow-hidden bg-black font-sans">
       {/* Dynamic swirling colorful background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#ff00ff_0%,transparent_50%)] animate-[spin_25s_linear_infinite]" />
@@ -184,7 +191,7 @@ const Register = () => {
         }
       `}</style>
     </div>
-  );
+  </>);
 };
 
 export default Register;
