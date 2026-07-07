@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import crypto from "crypto";
 import { usersDatabase } from "./Constants.js";
-import { readDatabase, writeDatabase } from "./util/DatabaseUtility.js";
+import { readDatabase, writeDatabase } from "./util/DatabaseUtil.js";
 
 const login = async (req, res) => {
   const { username, password } = req.body;

@@ -1,8 +1,13 @@
 export const databaseFilePath = "../database/db.json";
 export const usersDatabase = "../database/users.db.json";
-export const configFilePath = "./config.json";
+export const quipsDatabase = "../database/quips.db.json";
 
-export const transformationMap = {
-  fixedAssetTag: ["Fixed Asset Num.", "Fixed Asset Tag"],
-  macAddress: ["MAC Address", "MACAddress"],
+export const endpoints = {
+  API_AUTH_LOGIN: "/api/auth/login",
+  API_AUTH_REGISTER: "/api/auth/register",
+  API_QUIP: "/api/quip",
+};
+
+export const serverDetails = {
+  API_PORT: 3004,
 };

@@ -5,12 +5,17 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import multer from "multer";
-import { readDatabase, writeDatabase } from "./src/util/DatabaseUtility.js";
+import { readDatabase, writeDatabase } from "./src/util/DatabaseUtil.js";
 import { login, createUser, register } from "./src/Auth.js";
-import { configFilePath, usersDatabase } from "./src/Constants.js";
+import { usersDatabase, endpoints, serverDetails } from "./src/Constants.js";
+import { getQuip } from "./src/QuipGenerator.js";
+
 const server = express();
 const port = 3004;
 const dataPath = "../database/db.json";
+
+const { API_AUTH_LOGIN, API_AUTH_REGISTER, API_QUIP } = endpoints;
+const { API_PORT } = serverDetails;
 
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
@@ -42,35 +47,25 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 // login auth post == form submission
-server.post("/api/auth/login", async (req, res) => {
+server.post(API_AUTH_LOGIN, async (req, res) => {
   console.log("/auth/login endpoint has been hit!");
   return await login(req, res);
 });
 
-server.post("/api/auth/register", async (req, res) => {
+server.post(API_AUTH_REGISTER, async (req, res) => {
   console.log("/api/auth/register endpoint has been hit!");
   return await register(req, res);
 });
 
-server.get("/", (req, res) => {
-  console.log("/ root endpoint hit");
+server.post(API_QUIP, async (req, res) => {
+  console.log("/api/quip endpoint has been hit!");
+  return await getQuip(res);
 });
 
-server.get("/config", (request, response) => {
-  // console.log("/config endpoint hit");
-  fs.readFile(configFilePath, (err, data) => {
-    const configFile = JSON.parse(data);
-    response.json(configFile);
-  });
-});
-
-// logic for creating a user
-server.post("/users/create", (req, res) => {
-  const { username, password } = req.body;
-  console.log("Received user creation request for username:", username);
-});
-
-server.listen(port, () => {
+server.listen(API_PORT, () => {
   console.log(`Server is running on http://localhost:${port}`);
-  console.log("Listening for api calls...");
+  console.log("Listening for api calls at:");
+  for (let endpoint in endpoints) {
+    console.log("-->", endpoints[endpoint]);
+  }
 });
