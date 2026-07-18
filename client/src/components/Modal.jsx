@@ -28,18 +28,6 @@ const Modal = ({ children, isOpen=null, onClose=null }) => {
         </div>
         </div>
 
-        <style jsx global>{`
-        @keyframes popIn {
-            from {
-            opacity: 0;
-            transform: translateY(40px) scale(0.92);
-            }
-            to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            }
-        }
-        `}</style>
     </>);
 };
 
