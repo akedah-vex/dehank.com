@@ -18,26 +18,26 @@ const { API_AUTH_LOGIN, API_AUTH_REGISTER, API_QUIP } = endpoints;
 const { API_PORT } = serverDetails;
 
 // Set up multer for handling file uploads
-const storage = multer.diskStorage({
-  destination: (request, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (request, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (request, file, cb) => {
+//     cb(null, "uploads/");
+//   },
+//   filename: (request, file, cb) => {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-const upload = multer({
-  storage,
-  fileFilter: (request, file, cb) => {
-    // check for file type eventually, doing no checks now
+// const upload = multer({
+//   storage,
+//   fileFilter: (request, file, cb) => {
+//     // check for file type eventually, doing no checks now
 
-    return cb(null, true);
-  },
-});
+//     return cb(null, true);
+//   },
+// });
 server.use(
   cors({
-    origin: "https://dehank.com/",
+    origin: "https://localhost:3004/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
