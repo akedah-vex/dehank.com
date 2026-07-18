@@ -21,13 +21,16 @@ const readDatabase = (database) => {
 
 const writeDatabase = (database, data) => {
   return new Promise((resolve, reject) => {
-    fs.writeFile(database, JSON.stringify(data, null, 2), "utf8", (e) => {
-      if (e) {
-        console.error("error writing file:", e);
-        reject(false);
+    fs.writeFile(database, JSON.stringify(data, null, 2), "utf8", (error) => {
+      if (error) {
+        console.error(
+          `Failed to write database file at ${database}:`,
+          error.message,
+        );
+        return reject(error);
       }
-      console.log("database successfully written");
-      resolve(true);
+      console.log("Database successfully written");
+      resolve();
     });
   });
 };
