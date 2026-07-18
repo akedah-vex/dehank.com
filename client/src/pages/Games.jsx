@@ -8,7 +8,7 @@ const Games = () => {
   const { user } = useContext(AuthContext)
 
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [openModal, setOpenModal] = useState(true);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -19,8 +19,8 @@ const Games = () => {
   }, []);
   return (
     <>
-    <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-      test
+    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+      <center>Welcome!</center> {/* ANCIENT HTML LMAO */}
     </Modal>
       <div className="min-h-screen relative overflow-hidden bg-black font-sans">
         {/* Same swirling background as reference */}

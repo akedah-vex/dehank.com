@@ -2,11 +2,14 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'
 import Logo from '../components/Logo'
+import Modal from '../components/Modal';
 
 const Login = () => {
   const { handleLogin, setUser } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,6 +23,8 @@ const Login = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault()
+      setShowModal(true);
+
     console.log("logging in")
     const response = await handleLogin(username, password);
     console.log("client-login:", response)
@@ -29,7 +34,7 @@ const Login = () => {
         setUsername('')
         setPassword('');
         console.log("success");
-        alert("Log in success")
+        // alert("Log in success")
         navigate('/games');
     }
     else {
@@ -37,7 +42,10 @@ const Login = () => {
     }
   }
 
-  return (
+  return ( <>
+    <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+      Loging in...
+    </Modal>
     <div className="min-h-screen relative overflow-hidden bg-black font-sans">
       {/* Dynamic swirling colorful background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,#ff00ff_0%,transparent_50%)] animate-[spin_25s_linear_infinite]" />
@@ -163,7 +171,7 @@ const Login = () => {
         }
       `}</style>
     </div>
-  );
+  </>);
 };
 
 export default Login;
