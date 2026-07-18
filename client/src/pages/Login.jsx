@@ -44,7 +44,7 @@ const Login = () => {
 
   return ( <>
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-      Loging in...
+      Logging in...
     </Modal>
     <div className="min-h-screen relative overflow-hidden bg-black font-sans">
       {/* Dynamic swirling colorful background */}

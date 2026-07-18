@@ -41,7 +41,7 @@ const login = async ({ username, password }) => {
       },
     })
     .catch((err) => {
-      console.error("Error during login request:", err);
+      console.error("Error duringss login request:", err);
 
       return;
     });
