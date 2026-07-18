@@ -35,6 +35,7 @@ const { API_PORT } = serverDetails;
 //     return cb(null, true);
 //   },
 // });
+
 server.use(
   cors({
     origin: "https://localhost:3004/",

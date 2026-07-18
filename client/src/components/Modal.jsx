@@ -22,13 +22,11 @@ const Modal = ({ children, isOpen=null, onClose=null }) => {
             x
             </button>
 
-            <div className="p-10 pt-12">
+            <div className="p-10 pt-12 text-black text-lg font-black px-6 border-4 border-black">
             {children}
             </div>
 
-            <div className="bg-black text-white text-center py-3 text-sm font-mono tracking-widest border-t-4 border-black">
-            EST. 2026 • NO BOOMERS ALLOWED
-            </div>
+            
         </div>
         </div>
 
