@@ -79,22 +79,7 @@ const Splash = ({callback}) => {
         </div>
       </div>
 
-      {/* Global keyframes - Add these to your Tailwind config or global CSS */}
-      <style jsx global>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(-2deg); }
-          50% { transform: translateY(-25px) rotate(2deg); }
-        }
-        
-        @keyframes shine {
-          0% { transform: translateX(-150%) rotate(-3deg); }
-          100% { transform: translateX(300%) rotate(-3deg); }
-        }
-        
-        .animate-spin-slow {
-          animation: spin 40s linear infinite;
-        }
-      `}</style>
+
     </div>
         </>
     );

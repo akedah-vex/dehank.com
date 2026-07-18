@@ -59,12 +59,12 @@ const Games = () => {
             <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
               WELCOME BACK
             </p>
-            <p 
+            <div 
               className="text-6xl md:text-7xl font-black text-red-500 tracking-wider drop-shadow-[0_0_20px_#84cc16]"
               style={{ fontFamily: '"Comic Sans MS", cursive' }}
             >
               <Logo text={user} /> 
-            </p>
+            </div>
           </div>
             <p className="text-5xl md:text-6xl font-bold text-white tracking-widest mb-4 drop-shadow-lg">
               We're under active development <br /> check back later! <br /><br /> ~ Henry

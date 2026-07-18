@@ -147,29 +147,7 @@ const Login = () => {
         </p>
       </div>
 
-      {/* Global keyframes */}
-      <style jsx global>{`
-        @keyframes popIn {
-          from {
-            opacity: 0;
-            transform: translateY(30px) scale(0.94);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
 
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(-2deg); }
-          50% { transform: translateY(-25px) rotate(2deg); }
-        }
-       
-        @keyframes shine {
-          0% { transform: translateX(-150%) rotate(-3deg); }
-          100% { transform: translateX(300%) rotate(-3deg); }
-        }
-      `}</style>
     </div>
   </>);
 };

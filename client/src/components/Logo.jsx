@@ -20,7 +20,7 @@ const Logo = ({text}) => {
               : 'opacity-0 scale-75 translate-y-12'
           }`}
         >
-          <h1 
+          <div 
             className="text-[9rem] md:text-[12rem] font-black tracking-[-0.05em] leading-none select-none"
             style={{
               fontFamily: '"Comic Sans MS", "Impact", sans-serif',
@@ -37,7 +37,7 @@ const Logo = ({text}) => {
             }}
           >
             {text}
-          </h1>
+          </div>
           
           {/* Extra depth layer for "pop" */}
           <div 
