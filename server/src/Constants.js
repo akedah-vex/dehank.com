@@ -1,6 +1,14 @@
-export const databaseFilePath = "../database/db.json";
-export const usersDatabase = "../database/users.db.json";
-export const quipsDatabase = "../database/quips.db.json";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export const usersDatabase = path.join(
+  __dirname,
+  "../../database/",
+  "users.db.json",
+);
 
 export const endpoints = {
   API_AUTH_LOGIN: "/api/auth/login",

@@ -8,7 +8,7 @@ import multer from "multer";
 import { readDatabase, writeDatabase } from "./src/util/DatabaseUtil.js";
 import { login, createUser, register } from "./src/Auth.js";
 import { usersDatabase, endpoints, serverDetails } from "./src/Constants.js";
-import { getQuip } from "./src/QuipGenerator.js";
+// import { getQuip } from "./src/QuipGenerator.js";
 
 const server = express();
 const port = 3004;
