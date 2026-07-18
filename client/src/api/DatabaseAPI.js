@@ -48,5 +48,9 @@ const login = async ({ username, password }) => {
   return response;
 };
 
-export { register as register };
-export { login };
+const getQuip = async () => {
+  const response = await axios.post("/api/quip");
+};
+
+export { login, register };
+export { getQuip };

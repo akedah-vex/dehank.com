@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Clicker from '../components/Clicker'
 import Logo from '../components/Logo'
+import { getQuip } from '../api/DatabaseAPI'
 
 const Splash = ({callback}) => {
     const [showTitle, setShowTitle] = useState(false);
+    const [quip, setQuip] = useState('');
 
     useEffect(() => {
         // Trigger pop-in animation after mount
@@ -13,6 +15,7 @@ const Splash = ({callback}) => {
         }, 300);
         return () => clearTimeout(timer);
     }, []);
+
 
     return (
         <>
@@ -72,7 +75,7 @@ const Splash = ({callback}) => {
         {/* Fun footer badge */}
         <div className="absolute bottom-8 text-white/70 text-sm font-mono tracking-[4px] flex items-center gap-2">
           <div className="w-3 h-3 bg-lime-400 rounded-full animate-pulse" />
-          EST. 2026 • ALWAYS BANGIN'
+          EST. 2026 • {quip}
         </div>
       </div>
 
