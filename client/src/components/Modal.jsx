@@ -7,9 +7,7 @@ const Modal = ({ children, isOpen=null, onClose=null }) => {
         className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-6"
         onClick={onClose}
         >
-            <div className="absolute top-100 right-265 bg-yellow-400 text-black text-lg font-black px-6 py-1 border-4 border-black -rotate-15 shadow-md z-10 animate-[popIn_0.5s_backwards]">
-            CONFIDENTIAL
-            </div>
+           
         <div 
             className="bg-white border-8 border-black shadow-[12px_12px_0_#000] relative max-w-lg w-full animate-[popIn_0.5s_forwards] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
