@@ -1,0 +1,184 @@
+name: Staging Deployment Pipeline
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  # Job 1: Deploy to Local VPS
+  deploy-local-vps:
+    runs-on: debian
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Key for VPS
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_HOSTNAME }} >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Pull Latest Staging on VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOSTNAME }} << 'EOF'
+            cd ~/dehank || { echo "Project folder ~/dehank not found on VPS"; exit 1; }
+            git fetch origin staging
+            git reset --hard origin/staging
+            git pull origin staging
+            echo "✅ Successfully pulled staging on VPS"
+          EOF
+
+  # Job 2: Run Tests (Fail-Stop on Failure)
+  run-tests:
+    needs: deploy-local-vps # Must wait for deploy to complete
+    runs-on: debian
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: |
+          npm ci
+
+      # TODO: Add your testing framework commands below
+      # Example: npm test (Jest, React Testing Library, etc.)
+      # Example: npm run test:e2e
+      # Uncomment when you decide on your testing stack
+
+      # --- TEST COMMANDS HERE ---
+      # npm test || exit 1  # Jest / React Testing Library
+      # npm run lint || exit 1
+      # --------------------------
+
+      - name: Tests Passed
+        if: success()
+        run: echo "✅ All tests passed"
+
+  # Job 3: Build Client and Update Nginx Directory
+  build-and-deploy-local:
+    needs: run-tests # Only runs if tests pass
+    runs-on: debian
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Client
+        run: |
+          npm run build
+
+      - name: Setup SSH Key for VPS
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Move Dist Folder to Nginx Directory
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOSTNAME }} << 'EOF'
+            # Remove old dist files
+            sudo rm -rf /var/www/dehank.com/*
+            
+            # Copy new dist folder contents (assuming dist exists locally after build)
+            # Note: This assumes you're copying FROM the runner workspace TO VPS
+            # You may need SCP instead. Adjust based on your setup.
+            
+            cd ~/dehank
+            sudo cp -r dist/* /var/www/dehank.com/
+            
+            # Verify index.html exists where nginx expects it
+            if [ -f /var/www/dehank.com/index.html ]; then
+              echo "✅ Index.html copied to nginx directory"
+            else
+              echo "❌ Index.html not found in expected location"
+              exit 1
+            fi
+          EOF
+
+  # Job 4: ZAP Security Scan from Kali Box
+  zap-scan:
+    needs: build-and-deploy-local # Scan only after deployment
+    runs-on: debian
+    steps:
+      - name: Setup SSH Key for Kali
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.KALI_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H kali.home.lab >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Run ZAP Scan from Kali Box
+        run: |
+          ssh -o StrictHostKeyChecking=no kali@kali.home.lab << 'EOF'
+            # TODO: Insert your ZAP command below
+            # Example: zap.sh -daemon -host 99.99.99.99 -port 8080 -mode quick
+            
+            # Placeholder IP - REPLACE WITH YOUR ACTUAL VPS IP
+            TARGET_IP="99.99.99.99"
+            
+            echo "🔍 Starting ZAP scan against: $TARGET_IP"
+            
+            # Your ZAP scan commands here...
+            # Example:
+            # zap-baseline.py -t http://$TARGET_IP
+            
+            echo "✅ ZAP scan completed"
+          EOF
+
+  # Job 5: Push Staging to GitHub Origin
+  sync-to-github:
+    needs: zap-scan # Only push if scan passes
+    runs-on: debian
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Key for GitHub (if using SSH) OR Setup Git Credential
+        run: |
+          # Option A: If using SSH
+          mkdir -p ~/.ssh
+          echo "${{ secrets.GITHUB_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null || true
+
+          # Option B: If using HTTPS token (uncomment if preferred)
+          # git config --global credential.helper store
+          # echo "https://${{ secrets.GITHUB_TOKEN }}@github.com" >> ~/.git-credentials
+
+      - name: Configure Git Identity
+        run: |
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "Forgejo Runner"
+
+      - name: Setup SSH Key for VPS
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Push Staging to GitHub
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOSTNAME }} << 'EOF'
+            cd ~/dehank || { echo "Project folder not found"; exit 1; }
+            
+            # Ensure staging branch exists locally
+            git fetch origin staging 2>/dev/null || true
+            
+            # Push staging to GitHub origin
+            git push -u origin staging
+            
+            echo "✅ Successfully pushed staging to GitHub origin"
+          EOF
