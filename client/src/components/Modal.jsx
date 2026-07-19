@@ -1,6 +1,5 @@
 const Modal = ({ children, isOpen=null, onClose=null }) => {
     if (!isOpen) return null;
-
     return (
     <>
         <div 
@@ -21,13 +20,10 @@ const Modal = ({ children, isOpen=null, onClose=null }) => {
             </button>
 
             <div className="p-10 pt-12 text-black text-lg font-black px-6 border-4 border-black">
-            {children}
+                {children}
             </div>
-
-            
+            </div>
         </div>
-        </div>
-
     </>);
 };
 
