@@ -1,0 +1,5 @@
+name: Staging
+
+on:
+  push:
+    branches: [dev] # or master
